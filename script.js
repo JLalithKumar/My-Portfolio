@@ -304,10 +304,11 @@ function initCertificateModals() {
   const certModalOpenFull = document.getElementById('certModalOpenFull');
   const closeBtn = document.getElementById('certModalClose');
   
-  const clickableCerts = document.querySelectorAll('.cert-card, .workshop-card');
+  const clickableCerts = document.querySelectorAll('.cert-card, .workshop-card, .exp-cert-btn');
   
   clickableCerts.forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
       const imgPath = card.getAttribute('data-cert-img');
       const title = card.getAttribute('data-cert-title') || card.querySelector('.cert-name, .workshop-title')?.textContent;
       const issuer = card.getAttribute('data-cert-issuer') || card.querySelector('.cert-issuer, .workshop-org')?.textContent;

@@ -1163,6 +1163,42 @@ code, pre {
   border-radius: var(--radius-full);
 }
 
+.exp-cert-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: var(--radius-sm);
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+  font-size: 0.78125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: 0.35rem;
+}
+
+.exp-cert-btn:hover {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
+}
+
+[data-theme="light"] .exp-cert-btn {
+  background: rgba(2, 132, 199, 0.08);
+  border-color: rgba(2, 132, 199, 0.3);
+  color: #0284c7;
+}
+
+[data-theme="light"] .exp-cert-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+}
+
 .exp-bullets {
   list-style: none;
   display: flex;
