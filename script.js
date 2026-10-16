@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initNavigation();
+  initMobileNav();
   initProjectModals();
   initCertificateModals();
   initContactAndClipboard();
@@ -47,7 +48,7 @@ function applyTheme(theme) {
    2. Navigation Highlighting across 10 Sections
    ========================================================================== */
 function initNavigation() {
-  const navLinks = document.querySelectorAll('.nav-link');
+  const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-item');
   const sections = document.querySelectorAll('section[id]');
   
   window.addEventListener('scroll', () => {
@@ -431,3 +432,66 @@ function showToast(message) {
     toast.classList.remove('show');
   }, 3200);
 }
+
+/* ==========================================================================
+   8. Mobile Navigation Drawer & Three Dash Toggle
+   ========================================================================== */
+function initMobileNav() {
+  const toggleBtn = document.getElementById('mobileMenuToggle');
+  const drawer = document.getElementById('mobileNavDrawer');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-item, .mobile-drawer-cta');
+
+  if (!toggleBtn || !drawer) return;
+
+  const closeMenu = () => {
+    toggleBtn.classList.remove('active');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+  };
+
+  const openMenu = () => {
+    toggleBtn.classList.add('active');
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+  };
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+
+  // Close when clicking outside drawer
+  document.addEventListener('click', (e) => {
+    if (drawer.classList.contains('open') && !drawer.contains(e.target) && !toggleBtn.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Close on Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      closeMenu();
+    }
+  });
+
+  // Close on window resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && drawer.classList.contains('open')) {
+      closeMenu();
+    }
+  });
+}
+
